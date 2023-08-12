@@ -144,7 +144,7 @@ const resendVerify = async (req, res) => {
         .status(400)
         .json({ message: 'Verification has already been passed' })
     }
-    // если не подтвердил пока
+
     // create verify email создали
 
     const verifyEmail = {
