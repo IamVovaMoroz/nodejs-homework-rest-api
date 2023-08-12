@@ -37,7 +37,21 @@ const userSchema = new Schema(
     avatarURL: {
       type: String,
       required: true
-    }
+    },
+    // для email подтверждения
+    verify: {
+      type: Boolean,
+      default: false
+    },
+    // отправляется на почту. Тот что пришел на email и тот что есть проверим
+    verificationToken: {
+      type: String,
+      required: [true, 'Verify token is required'],
+    },
+    // verificationCode: {
+    //   type: String
+
+    // }
   },
   // Для добавления времени Event
   { versionKey: false, timestamps: true }
@@ -56,9 +70,15 @@ const loginSchema = Joi.object({
   password: Joi.string().min(6).required()
 })
 
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(emailRegexp).required(),
+  
+})
+
 const schemas = {
   registerSchema,
-  loginSchema
+  loginSchema,
+  emailSchema
 }
 
 // Создаём модель. Указываем название коллекции в единственном числе и схему добавляем userSchema
