@@ -21,6 +21,14 @@ router.post('/login', (req, res) => {
 
 router.get('/current', authenticate, authController.getCurrent)
 
+// роут для подтверждения верификации по email
+
+router.get('/verify/:verificationToken', authController.verify)
+
+// для повторной отправки кода верификации если email не пришёл 1 раз
+
+router.post('/verify', authController.resendVerify)
+
 // маршрут для logout
 router.post('/logout', authenticate, (req, res) => {
   authController.logout(req, res)
